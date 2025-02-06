@@ -13,30 +13,6 @@ def index():
     return render_template("index.html", username=session.get("username"))
 
 
-# -------- User Authentication --------
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    print("!")
-    if request.method == "POST":
-        return render_template_string("<h1>post for login</h1>")
-    return render_template("login.html")
-
-
-@app.route("/logout")
-def logout():
-    # Implement logout logic (clear session)
-    pass
-
-
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    if request.method == "POST":
-        # Implement user registration logic (save to DB)
-        return "register post"
-        pass
-    return render_template("register.html")
-
-
 # -------- Mood Logging --------
 @app.route("/log_mood", methods=["GET", "POST"])
 def log_mood():
