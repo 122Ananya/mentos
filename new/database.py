@@ -60,15 +60,15 @@ def get_db_connection():
 
 
 # Function to register a new user
-def register_user(username, email, password):
+def register_user(username, password):
     conn = get_db_connection()
     cursor = conn.cursor()
 
     hashed_password = generate_password_hash(password)  # Hash the password
     try:
         cursor.execute(
-            "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-            (username, email, hashed_password)
+            "INSERT INTO users (username, password) VALUES (?, ?)",
+            (username, hashed_password)
         )
         conn.commit()
         conn.close()
@@ -87,8 +87,8 @@ def authenticate_user(username, password):
     conn.close()
 
     if user and check_password_hash(user["password"], password):
-        return user  # Login successful
-    return None  # Login failed
+        return user["username"]  # Login successful
+    return False  # Login failed
 
 
 if __name__ == "__main__":
